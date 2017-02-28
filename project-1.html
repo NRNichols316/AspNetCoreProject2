@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Assessment - Project 1</title>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <h1>.Net Core API Assessment Project 1</h1>
+	
+	<!-- First Operand -->
+	<div class="fdiv">
+		<label class="label">Please input the first number: </label>
+		<input id="txtOperandX" class="input_first" type="number"  value=""  />
+		<span class="error">This field is required</span>
+		<br />
+	</div>
+	
+	<!-- Second Operand -->
+	<div class="fdiv">
+		<label>Please input the second number: </label>
+		<input id="txtOperandY" type="number" class="input_second" value="" />
+		<span class="error">This field is required</span>
+		<br /><br />
+	</div>
+	
+	<!--Submit Button-->
+	<div  id="input_submit">
+		<button id="btnCompute" disabled="true" onclick="myFunction()">Compute</button>
+	</div>
+	<br/>
+	<br/>
+	<br/>
+	<!--Cute Puppy Pictures-->
+	<div>
+	<div id="box" >
+		<img src="img/AmericanPitbullTerrier_zpsafe34e59.jpg" class="puppy1" alt="That face"/>	
+	</div>
+	
+	 
+	<div id="float">		
+		<a href="http://www.pittyloverescue.org/" alt="Pitty Love" target="_blank"> <img src="img/pitbull-puppy-diet-.jpg" class="resize"/></a>
+	</div>
+	</div>
+	<!--Message to Richard-->
+	<div class="wrapper">
+		<p class="first">Richard, I can't be a baby killer when I am this cute!!!!</p>
+	</div>
+	<br/>
+    
+    
+    
+    <script type="text/javascript" src="scripts/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">
+	
+		 $(document).ready(function() {
+			//First input can't be blank
+			$('#txtOperandX').on('input', function() {
+				var input=$(this);
+				var is_name=input.val();
+				if(is_name){input.removeClass("invalid").addClass("valid");}
+				else{input.removeClass("valid").addClass("invalid");}
+			});
+			
+			// Second input can't be blank
+			$('#txtOperandY').keyup(function(event) {
+				var input=$(this);
+				var message=$(this).val();
+				console.log(message);
+				if(message){input.removeClass("invalid").addClass("valid");}
+				else{input.removeClass("valid").addClass("invalid");}	
+			});
+			
+		
+			$('input').keyup(function(){
+				$('input').each(function() {
+				var r=$('#txtOperandX').val();
+				var u=$('#txtOperandY').val();
+				var pass;
+					if (r != '' && u != '') {
+						console.log('all inputs filled');
+						$('#btnCompute').removeAttr('disabled');
+						console.log('All fields have input');
+					}
+					else{
+						console.log('Theres an empty input');						
+					}
+				});	
+			});
+		});
+		
+		
+    
+       $('#btnCompute').click(function (e) {
+            var x = $('#txtOperandX').val();
+            var y = $('#txtOperandY').val();
+			
+		
+            $.ajax({
+                url: '/api/sumvalues/' + x + ',' + y,
+                method: 'GET',
+                success: function (data, textStatus, jqXHR) {
+                    window.alert(data);
+                },
+                error: function () {
+                    window.alert('An error occurred while attempting to perform an API request.');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

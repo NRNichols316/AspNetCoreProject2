@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Assessment - Project 2</title>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+    <link rel="stylesheet" type="text/css" href="css/style2.css">
+</head>
+<body>
+    <h1>.Net Core API Assessment Project 2</h1>
+    <button id="btnGetMessage">Get Message</button><br /><br />
+    <div class="wrapper">
+    <label>Update message word(s):</label><br />
+    <select id="selWord">
+	    <option value="0">Select</option>
+        <option value="1">First Word</option>
+        <option value="2">Second Word</option>
+    </select>
+    <input id="txtWord" type="text" placeholder="New word" /> 
+    <button id="btnUpdate">Update Message</button>
+	</div>
+	<div>		
+		<img src="img/coffee-beans.jpg" class="resize2"/>
+		<img src="img/expressoholder.jpg" class="resize2"/>
+		<img src="img/coffee.jpg" class="resize"/>
+	</div>
+
+    <script type="text/javascript" src="scripts/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">
+        $('#btnGetMessage').click(function (e) {
+            $.ajax({
+                url: 'api/msg',
+                method: 'GET', 
+                success: function (data, textStatus, jqXHR) {
+                    window.alert('Message: ' + data);
+                },
+                error: function () {
+                    window.alert('An error occurred while attempting to perform an API request.');
+                }
+            });
+        });
+
+        $('#btnUpdate').click(function (e) {
+            var wordId = $('#selWord').val();
+            var wordValue = $('#txtWord').val();
+
+            $.ajax({
+                url: 'api/msg/' + wordId + '/' + wordValue,
+                method: 'PUT', 
+                success: function (data, textStatus, jqXHR) {
+                    window.alert('Message word updated successfully');
+                },
+                error: function () {
+                    window.alert('An error occurred while attempting to perform an API request.');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
